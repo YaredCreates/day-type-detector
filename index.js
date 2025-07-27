@@ -1,11 +1,26 @@
-/*!
- * express
- * Copyright(c) 2009-2013 TJ Holowaychuk
- * Copyright(c) 2013 Roman Shtylman
- * Copyright(c) 2014-2015 Douglas Christopher Wilson
- * MIT Licensed
- */
+import express from "express";
 
-'use strict';
+const app= express();
+const port= 3000;
 
-module.exports = require('./lib/express');
+app.get("/", (req, res) => {
+
+const today = new Date();
+const day = today.getDay();
+// console.log(day);
+
+let type= "a weekday";
+let adv= "it's time to work hard";
+
+if(day===0 || day===6){
+    type= "the weekend";
+    adv= "it's time to have some fun";
+
+}
+
+res.render("index.ejs", {dayType: type, advice:adv,});
+});
+
+app.listen(port, () => {
+console.log(`Server running on port ${port}`);
+});
